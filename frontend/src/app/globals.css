@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #faf8ff;
+  --color-foreground: #131b2e;
+
+  /* Custom Colors from Design */
+  --color-surface-tint: #006e2f;
+  --color-surface-container: #eaedff;
+  --color-on-primary: #ffffff;
+  --color-on-tertiary-fixed-variant: #7f2a21;
+  --color-inverse-primary: #4ae176;
+  --color-tertiary-fixed-dim: #ffb4a9;
+  --color-surface: #faf8ff;
+  --color-error-container: #ffdad6;
+  --color-inverse-on-surface: #eef0ff;
+  --color-tertiary: #9e4036;
+  --color-on-secondary-container: #346e40;
+  --color-primary-fixed-dim: #4ae176;
+  --color-secondary-fixed: #b2f2b7;
+  --color-outline-variant: #bccbb9;
+  --color-tertiary-fixed: #ffdad5;
+  --color-on-primary-fixed: #002109;
+  --color-secondary: #2f6a3c;
+  --color-on-primary-fixed-variant: #005321;
+  --color-on-tertiary: #ffffff;
+  --color-on-secondary-fixed: #002109;
+  --color-error: #ba1a1a;
+  --color-primary: #006e2f;
+  --color-on-surface-variant: #3d4a3d;
+  --color-secondary-fixed-dim: #96d59d;
+  --color-surface-variant: #dae2fd;
+  --color-tertiary-container: #ff8b7c;
+  --color-on-error-container: #93000a;
+  --color-surface-dim: #d2d9f4;
+  --color-secondary-container: #afefb4;
+  --color-primary-container: #22c55e;
+  --color-on-secondary: #ffffff;
+  --color-surface-container-high: #e2e7ff;
+  --color-on-secondary-fixed-variant: #145126;
+  --color-on-surface: #131b2e;
+  --color-inverse-surface: #283044;
+  --color-primary-fixed: #6bff8f;
+  --color-surface-container-low: #f2f3ff;
+  --color-surface-bright: #faf8ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-background: #131b2e;
+  --color-on-error: #ffffff;
+  --color-on-tertiary-fixed: #410001;
+  --color-on-tertiary-container: #76231b;
+  --color-on-primary-container: #004b1e;
+  --color-surface-container-highest: #dae2fd;
+  --color-outline: #6d7b6c;
+
+  /* Custom Typography */
+  --font-headline: var(--font-manrope), var(--font-inter), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  --font-label: var(--font-inter), sans-serif;
+
+  /* Override default sans */
+  --font-sans: var(--font-inter), sans-serif;
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.editorial-shadow {
+  box-shadow: 0 32px 64px -12px rgba(19, 27, 46, 0.06);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: 10px;
+}
+
+/* Toast slide-in animation */
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.toast-slide-in {
+  animation: toastSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Nav active state */
+.nav-active {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary-container) !important;
+  font-weight: 700;
+}
+
+/* Number counter animation */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.stat-animate {
+  animation: countUp 0.5s ease forwards;
+}
+
+/* Professional Report Printing (PDF) */
+@media print {
+  @page {
+    size: A4 landscale;
+    margin: 1cm;
+  }
+
+  body {
+    background: white !important;
+    padding: 0 !important;
+  }
+
+  /* Hide non-report elements */
+  aside, 
+  nav, 
+  button, 
+  header .flex,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Ensure report is full width */
+  main,
+  .p-8 {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .grid {
+    display: block !important;
+  }
+
+  .grid > div {
+    break-inside: avoid;
+    margin-bottom: 2rem;
+    width: 100% !important;
+  }
+
+  /* Table styles for print */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  th, td {
+    padding: 8px !important;
+    border: 1px solid #eee !important;
+  }
+
+  tr {
+    break-inside: avoid;
+  }
+
+  h2, h4 {
+    color: #006e2f !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Force background colors for bars/charts in PDF */
+  .bg-\[var\(--color-primary\)\] { background-color: #006e2f !important; -webkit-print-color-adjust: exact; }
+  .bg-red-300 { background-color: #fca5a5 !important; -webkit-print-color-adjust: exact; }
+  .bg-yellow-300 { background-color: #fde047 !important; -webkit-print-color-adjust: exact; }
+  
+  .shadow-sm, .border {
+    box-shadow: none !important;
+    border: 1px solid #eee !important;
+  }
+}

@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Applicant {
+  id               Int               @id @default(autoincrement())
+  fullName         String
+  age              Int
+  gender           String
+  employmentType   String
+  monthlyIncome    Float
+  contactNumber    String
+  address          String
+  createdAt        DateTime          @default(now())
+  password         String?           @default("password123")
+  email            String?           @unique
+  creditHistory    CreditHistory?
+  creditScores     CreditScore[]
+  loanApplications LoanApplication[]
+}
+
+model CreditHistory {
+  id                Int       @id @default(autoincrement())
+  applicantId       Int       @unique
+  creditLengthYears Int
+  totalLoans        Int
+  defaultCount      Int
+  lastUpdated       DateTime
+  applicant         Applicant @relation(fields: [applicantId], references: [id])
+}
+
+model CreditScore {
+  id           Int       @id @default(autoincrement())
+  applicantId  Int
+  creditScore  Int
+  riskCategory String
+  scoreDate    DateTime
+  applicant    Applicant @relation(fields: [applicantId], references: [id])
+}
+
+model LoanType {
+  id               Int               @id @default(autoincrement())
+  loanTypeName     String
+  interestRate     Float
+  maxAmount        Float
+  maxTenure        Int
+  loanApplications LoanApplication[]
+}
+
+model LoanApplication {
+  id               Int               @id @default(autoincrement())
+  applicantId      Int
+  loanTypeId       Int
+  loanAmount       Float
+  tenureMonths     Int
+  applicationDate  DateTime          @default(now())
+  loanStatus       String            @default("Pending")
+  officerId        Int?
+  approvalDecision ApprovalDecision?
+  officer          Officer?          @relation(fields: [officerId], references: [id])
+  loanType         LoanType          @relation(fields: [loanTypeId], references: [id])
+  applicant        Applicant         @relation(fields: [applicantId], references: [id])
+  repayments       Repayment[]
+}
+
+model ApprovalDecision {
+  id             Int             @id @default(autoincrement())
+  loanId         Int             @unique
+  decisionStatus String
+  decisionReason String
+  decisionDate   DateTime        @default(now())
+  officerId      Int?            @default(1)
+  officer        Officer?        @relation(fields: [officerId], references: [id])
+  loan           LoanApplication @relation(fields: [loanId], references: [id])
+}
+
+model Repayment {
+  id              Int             @id @default(autoincrement())
+  loanId          Int
+  amountPaid      Float
+  paymentDate     DateTime        @default(now())
+  remainingAmount Float
+  paymentStatus   String
+  loan            LoanApplication @relation(fields: [loanId], references: [id])
+}
+
+model Officer {
+  id            Int                @id @default(autoincrement())
+  name          String
+  email         String             @unique
+  password      String
+  designation   String?
+  department    String?
+  createdAt     DateTime           @default(now())
+  decisions     ApprovalDecision[]
+  assignedLoans LoanApplication[]
+}
