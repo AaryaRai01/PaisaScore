@@ -86,6 +86,11 @@ PaisaScore/
 └── README.md
 ```
 
+## 👥 Contributors
+
+- **Aarya Rai**
+- **Kushagra Tyagi**
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
