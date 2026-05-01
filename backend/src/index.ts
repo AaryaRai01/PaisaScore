@@ -3,7 +3,9 @@ import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
 
 const app = express();
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ["query", "info", "warn", "error"],
+});
 const PORT = process.env.PORT || 5001;
 
 app.use(express.json());

@@ -77,7 +77,15 @@ body {
 }
 
 .material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
 }
 
 .editorial-shadow {
@@ -132,13 +140,15 @@ body {
 /* Professional Report Printing (PDF) */
 @media print {
   @page {
-    size: A4 landscale;
-    margin: 1cm;
+    size: A4 landscape;
+    margin: 1.5cm;
   }
 
   body {
     background: white !important;
     padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   /* Hide non-report elements */
@@ -150,52 +160,79 @@ body {
     display: none !important;
   }
 
-  /* Ensure report is full width */
+  /* Reset main container layout for print */
   main,
-  .p-8 {
+  .p-8,
+  .flex-1 {
     width: 100% !important;
     max-width: none !important;
     padding: 0 !important;
     margin: 0 !important;
-  }
-
-  .grid {
     display: block !important;
+    position: static !important;
   }
 
-  .grid > div {
-    break-inside: avoid;
-    margin-bottom: 2rem;
-    width: 100% !important;
+  /* Maintain Grid Layouts for KPIs and Charts where appropriate */
+  .grid {
+    display: grid !important;
+    gap: 1.5rem !important;
   }
 
-  /* Table styles for print */
+  .grid-cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
+  .grid-cols-2 { grid-template-columns: repeat(2, 1fr) !important; }
+  .lg\:grid-cols-12 { grid-template-columns: repeat(12, 1fr) !important; }
+  .lg\:col-span-8 { grid-column: span 8 / span 8 !important; }
+  .lg\:col-span-4 { grid-column: span 4 / span 4 !important; }
+
+  /* Card and Chart styling for print */
+  .bg-white, .bg-slate-50, .bg-\[var\(--color-primary\)\] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .shadow-sm, .border {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
+  }
+
+  .rounded-xl, .rounded-2xl {
+    border-radius: 12px !important;
+  }
+
+  /* Table styles for professional look */
   table {
     width: 100% !important;
     border-collapse: collapse !important;
+    margin-top: 1rem;
+    font-size: 10pt !important;
+  }
+
+  th {
+    background-color: #f8fafc !important;
+    color: #475569 !important;
+    font-weight: 700 !important;
+    -webkit-print-color-adjust: exact !important;
   }
 
   th, td {
-    padding: 8px !important;
-    border: 1px solid #eee !important;
+    padding: 10px 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    text-align: left !important;
   }
 
   tr {
     break-inside: avoid;
   }
 
-  h2, h4 {
+  h2 {
     color: #006e2f !important;
-    margin-bottom: 1rem !important;
+    font-size: 24pt !important;
+    margin-bottom: 0.5rem !important;
   }
 
-  /* Force background colors for bars/charts in PDF */
-  .bg-\[var\(--color-primary\)\] { background-color: #006e2f !important; -webkit-print-color-adjust: exact; }
-  .bg-red-300 { background-color: #fca5a5 !important; -webkit-print-color-adjust: exact; }
-  .bg-yellow-300 { background-color: #fde047 !important; -webkit-print-color-adjust: exact; }
-  
-  .shadow-sm, .border {
-    box-shadow: none !important;
-    border: 1px solid #eee !important;
-  }
+  /* Color overrides for specific report elements */
+  .bg-\[var\(--color-primary\)\] { background-color: #006e2f !important; }
+  .bg-red-300 { background-color: #fca5a5 !important; }
+  .bg-yellow-300 { background-color: #fde047 !important; }
+  .text-\[var\(--color-primary\)\] { color: #006e2f !important; }
 }
