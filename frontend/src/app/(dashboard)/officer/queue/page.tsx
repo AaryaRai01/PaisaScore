@@ -72,15 +72,15 @@ export default function OfficerQueuePage() {
 
       <div className="px-4 py-6 space-y-6">
         {/* Stats strip */}
-        <div className="grid grid-cols-3 gap-2 sm:gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
           {[
             { label: "Pending", value: pending,  color: "text-yellow-600 bg-yellow-50 border-yellow-200" },
             { label: "Approved",       value: approved, color: "text-green-700 bg-green-50 border-green-200"   },
             { label: "Rejected",       value: rejected, color: "text-red-600 bg-red-50 border-red-200"         },
           ].map(({ label, value, color }) => (
-            <div key={label} className={`rounded-xl border p-3 ${color}`}>
-              <p className="text-[8px] font-bold uppercase tracking-wider opacity-70 mb-0.5">{label}</p>
-              <p className="font-headline text-2xl font-extrabold">{value}</p>
+            <div key={label} className={`rounded-xl border p-4 flex items-center justify-between md:flex-col md:items-start md:gap-2 ${color}`}>
+              <p className="text-xs font-bold uppercase tracking-wider opacity-70">{label}</p>
+              <p className="font-headline text-2xl lg:text-4xl font-extrabold">{value}</p>
             </div>
           ))}
         </div>

@@ -113,19 +113,19 @@ export default function OfficerReportsPage() {
       </header>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
         {[
           { label: "Portfolio Value",  value: `₹${((analytics?.totalPortfolioValue ?? 0) / 100000).toFixed(1)}L`, icon: "account_balance_wallet", accent: true  },
           { label: "Approval Rate",    value: `${analytics?.approvalRate ?? 0}%`,                                  icon: "trending_up",            accent: false },
           { label: "Avg Credit Score", value: analytics?.avgCreditScore ?? 0,                                       icon: "grade",                  accent: false },
           { label: "High Risk Cases",   value: analytics?.highRiskCount ?? 0,                                       icon: "warning",                accent: false },
         ].map(({ label, value, icon, accent }) => (
-          <div key={label} className={`p-4 rounded-xl shadow-sm border flex flex-col justify-between ${accent ? "bg-[var(--color-primary)] border-transparent text-white" : "bg-white border-slate-100"}`}>
-            <div className="flex justify-between items-start mb-2">
-              <span className={`text-[8px] lg:text-[10px] font-bold uppercase tracking-wider ${accent ? "text-white/70" : "text-slate-500"}`}>{label}</span>
-              <span className={`material-symbols-outlined text-lg lg:text-xl ${accent ? "text-white/80" : "text-[var(--color-primary)]"}`} style={{ fontVariationSettings: "'FILL' 1" }}>{icon}</span>
+          <div key={label} className={`p-4 sm:p-5 rounded-xl shadow-sm border flex items-center justify-between sm:flex-col sm:items-start sm:gap-2 ${accent ? "bg-[var(--color-primary)] border-transparent text-white" : "bg-white border-slate-100"}`}>
+            <div className="flex items-center gap-2">
+              <span className={`material-symbols-outlined text-lg sm:text-xl opacity-70 ${accent ? "text-white/80" : "text-[var(--color-primary)]"}`} style={{ fontVariationSettings: "'FILL' 1" }}>{icon}</span>
+              <span className={`text-xs font-bold uppercase tracking-wider ${accent ? "text-white/70" : "text-slate-500"}`}>{label}</span>
             </div>
-            <span className={`font-headline text-xl lg:text-3xl font-extrabold ${accent ? "text-white" : "text-slate-900"}`}>{value}</span>
+            <span className={`font-headline text-2xl sm:text-3xl font-extrabold ${accent ? "text-white" : "text-slate-900"}`}>{value}</span>
           </div>
         ))}
       </div>

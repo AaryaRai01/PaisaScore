@@ -51,24 +51,17 @@ export default function UserSidebar({ isOpen, onClose }: { isOpen?: boolean; onC
         </button>
       </div>
 
-      {/* User welcome badge & Logout */}
-      <div className="px-5 py-4 border-b border-slate-50 space-y-3">
+      {/* User welcome badge */}
+      <div className="px-5 py-4 border-b border-slate-50">
         <div className="bg-[var(--color-primary)]/8 rounded-xl px-4 py-3 flex items-center gap-3">
           <div className="w-9 h-9 rounded-full bg-[var(--color-primary)]/20 flex items-center justify-center flex-shrink-0">
             <span className="material-symbols-outlined text-[var(--color-primary)] text-base">person</span>
           </div>
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0">
             <p className="text-slate-900 text-sm font-bold truncate">{applicantName}</p>
             <p className="text-slate-500 text-[10px] font-medium">Borrower Account</p>
           </div>
         </div>
-        <button
-          onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-lg text-xs font-bold hover:bg-red-100 transition-all border border-red-100"
-        >
-          <span className="material-symbols-outlined text-sm">logout</span>
-          Sign Out
-        </button>
       </div>
 
       {/* Navigation */}
@@ -98,6 +91,16 @@ export default function UserSidebar({ isOpen, onClose }: { isOpen?: boolean; onC
           );
         })}
       </nav>
+      {/* Logout */}
+      <div className="px-4 py-5 pb-8 lg:pb-4 border-t border-slate-100">
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-2 px-4 py-2.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl text-sm transition-all"
+        >
+          <span className="material-symbols-outlined text-base">logout</span>
+          Sign Out
+        </button>
+      </div>
     </aside>
   );
 }

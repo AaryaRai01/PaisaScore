@@ -36,26 +36,16 @@ export default function OfficerSidebar({ isOpen, onClose }: { isOpen?: boolean; 
       isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
     }`}>
       {/* Brand */}
-      <div className="px-5 py-6 bg-white border-b border-slate-200 flex flex-col gap-4">
-        <div className="flex items-center justify-between w-full">
-          <div className="flex flex-col items-start gap-1">
-            <PaisaScoreLogo height={60} className="-ml-1" />
-            <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em] font-black ml-1">Officer Portal</p>
-          </div>
-          <button 
-            onClick={onClose}
-            className="lg:hidden p-2 text-slate-400 hover:text-slate-600"
-          >
-            <span className="material-symbols-outlined">close</span>
-          </button>
+      <div className="px-5 py-6 bg-white border-b border-slate-200 flex items-center justify-between">
+        <div className="flex flex-col items-start gap-1">
+          <PaisaScoreLogo height={60} className="-ml-1" />
+          <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em] font-black ml-1">Officer Portal</p>
         </div>
-        
-        <button
-          onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-xl text-xs font-bold transition-all border border-red-500/20"
+        <button 
+          onClick={onClose}
+          className="lg:hidden p-2 text-slate-400 hover:text-slate-600"
         >
-          <span className="material-symbols-outlined text-sm">logout</span>
-          Sign Out
+          <span className="material-symbols-outlined">close</span>
         </button>
       </div>
 
@@ -87,8 +77,16 @@ export default function OfficerSidebar({ isOpen, onClose }: { isOpen?: boolean; 
         })}
       </nav>
 
-      {/* Officer badge */}
-      <div className="px-4 py-4 border-t border-slate-800">
+      {/* Officer badge + logout */}
+      <div className="px-4 py-4 pb-8 lg:pb-4 border-t border-slate-800 space-y-4">
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-2 px-4 py-2.5 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-xl text-sm font-bold transition-all"
+        >
+          <span className="material-symbols-outlined text-base">logout</span>
+          Sign Out
+        </button>
+        
         <div className="flex items-center gap-3 px-3 py-1 opacity-60">
           <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center flex-shrink-0">
             <span className="material-symbols-outlined text-slate-400 text-sm">admin_panel_settings</span>
