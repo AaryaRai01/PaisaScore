@@ -245,7 +245,7 @@ export default function LoginPage() {
           <div className="flex items-center justify-center mb-0 transition-transform hover:scale-105 duration-500 scale-90 sm:scale-100">
             <PaisaScoreLogo height={80} />
           </div>
-          <p className="text-base lg:text-lg text-slate-500 font-medium tracking-tight animate-fade-in px-4 leading-snug">
+          <p className="-mt-4 text-base lg:text-lg text-slate-500 font-medium tracking-tight animate-fade-in px-4 leading-snug">
             Simplifying finance through <span className="text-[var(--color-primary)] font-bold">intelligent technology.</span>
           </p>
         </div>
