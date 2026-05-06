@@ -162,7 +162,8 @@ export default function OfficerDashboard() {
             </tbody>
           </table>
         </div>
-      </div>
+      )}
     </div>
-  );
+  </div>
+);
 }
