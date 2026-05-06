@@ -5,8 +5,18 @@ const app = express();
 
 app.use(express.json());
 
+// ── CORS (Added for Deployment) ──────────────────────────────────────────────
+app.use((req, res, next) => {
+    const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:3000";
+    res.header("Access-Control-Allow-Origin", allowedOrigin);
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+    if (req.method === "OPTIONS") { res.sendStatus(200); return; }
+    next();
+});
+
 // ── DATABASE CONFIGURATION ───────────────────────────────────────────────────
-const db = mysql.createConnection({
+const db = mysql.createConnection(process.env.DATABASE_URL || {
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD,
@@ -80,7 +90,7 @@ app.delete('/api/sql/delete/:id', (req, res) => {
 });
 
 // ── SERVER START ─────────────────────────────────────────────────────────────
-const PORT = 5005;
+const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => {
     console.log("---------------------------------------------------------");
     console.log(`🚀 SQL Connectivity Demo running at http://localhost:${PORT}`);
