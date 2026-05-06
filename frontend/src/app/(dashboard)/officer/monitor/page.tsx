@@ -16,14 +16,14 @@ export default function LoanMonitorPage() {
 
   return (
     <div className="p-4 lg:p-8 space-y-6 lg:space-y-8 max-w-[100vw] overflow-hidden">
-      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
-          <h2 className="font-headline text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">Loan Monitor</h2>
-          <p className="text-slate-500 text-sm mt-1">All approved & active loans — real-time repayment tracking</p>
+          <h2 className="font-headline text-lg lg:text-3xl font-extrabold text-slate-900 tracking-tight">Loan Monitor</h2>
+          <p className="text-slate-500 text-[10px] lg:text-sm mt-0.5">Approved & active loans.</p>
         </div>
         <div className="text-left sm:text-right">
-          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Active Portfolio</p>
-          <p className="font-headline text-2xl lg:text-3xl font-extrabold text-[var(--color-primary)]">₹{totalPortfolio.toLocaleString()}</p>
+          <p className="text-[8px] lg:text-[10px] text-slate-400 font-bold uppercase tracking-wider">Portfolio</p>
+          <p className="font-headline text-lg lg:text-3xl font-extrabold text-[var(--color-primary)]">₹{totalPortfolio.toLocaleString()}</p>
         </div>
       </header>
 

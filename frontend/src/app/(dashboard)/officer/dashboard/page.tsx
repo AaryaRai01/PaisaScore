@@ -62,29 +62,29 @@ export default function OfficerDashboard() {
   ];
 
   return (
-    <div className="p-4 lg:p-8 space-y-6 lg:space-y-8 max-w-[100vw] overflow-hidden">
-      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div className="p-2 sm:p-4 lg:p-8 space-y-4 lg:space-y-8 max-w-[100vw] overflow-hidden">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
-          <h2 className="font-headline text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">Officer Dashboard</h2>
-          <p className="text-slate-500 text-sm mt-1">Welcome back, {officerName}. Portfolio overview.</p>
+          <h2 className="font-headline text-lg lg:text-3xl font-extrabold text-slate-900 tracking-tight">Dashboard</h2>
+          <p className="text-slate-500 text-[10px] lg:text-sm mt-0.5">Welcome, {officerName}. Portfolio overview.</p>
         </div>
         <Link href="/officer/queue" className="w-full sm:w-auto">
-          <button className="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white rounded-xl font-semibold text-sm shadow-md shadow-[var(--color-primary)]/20 hover:opacity-90 transition-opacity">
+          <button className="w-full flex items-center justify-center gap-2 px-3 py-1.5 bg-[var(--color-primary)] text-white rounded-xl font-semibold text-xs shadow-md shadow-[var(--color-primary)]/20 hover:opacity-90 transition-opacity">
             <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>inbox</span>
-            Review Queue ({analytics?.pendingQueue ?? 0})
+            Review ({analytics?.pendingQueue ?? 0})
           </button>
         </Link>
       </header>
 
       {/* KPI Grid - Stacked on Mobile */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 lg:gap-5">
         {stats.map(({ label, value, icon, accent }) => (
-          <div key={label} className={`p-5 rounded-xl shadow-sm border flex flex-col gap-3 ${accent ? "bg-[var(--color-primary)] border-transparent text-white shadow-[var(--color-primary)]/20" : "bg-white border-slate-100"}`}>
+          <div key={label} className={`p-4 rounded-xl shadow-sm border flex flex-col gap-2 ${accent ? "bg-[var(--color-primary)] border-transparent text-white shadow-[var(--color-primary)]/20" : "bg-white border-slate-100"}`}>
             <div className="flex justify-between items-center">
-              <span className={`text-[10px] font-bold uppercase tracking-wider ${accent ? "text-white/70" : "text-slate-500"}`}>{label}</span>
-              <span className={`material-symbols-outlined text-xl ${accent ? "text-white/80" : "text-[var(--color-primary)]"}`} style={{ fontVariationSettings: "'FILL' 1" }}>{icon}</span>
+              <span className={`text-[8px] lg:text-[10px] font-bold uppercase tracking-wider ${accent ? "text-white/70" : "text-slate-500"}`}>{label}</span>
+              <span className={`material-symbols-outlined text-lg lg:text-xl ${accent ? "text-white/80" : "text-[var(--color-primary)]"}`} style={{ fontVariationSettings: "'FILL' 1" }}>{icon}</span>
             </div>
-            <span className={`font-headline text-3xl font-extrabold ${accent ? "text-white" : "text-slate-900"}`}>{value}</span>
+            <span className={`font-headline text-xl lg:text-3xl font-extrabold ${accent ? "text-white" : "text-slate-900"}`}>{value}</span>
           </div>
         ))}
       </div>
