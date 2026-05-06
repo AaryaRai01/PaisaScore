@@ -111,10 +111,10 @@ npm run dev
 
 ---
 
-## 👥 Professional Team
+## 👥 Collaborators
 
-- **Aarya Rai** — Lead Architect & Full-Stack Developer
-- **Kushagra Tyagi** — System Designer & Developer
+- **Aarya Rai**
+- **Kushagra Tyagi**
 
 ---
 
