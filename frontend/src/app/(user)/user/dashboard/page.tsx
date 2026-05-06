@@ -149,7 +149,7 @@ export default function UserDashboard() {
             </tbody>
           </table>
         </div>
-      </div>
+      )}
     </div>
   );
 }
