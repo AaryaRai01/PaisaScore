@@ -28,9 +28,9 @@ export default function UserDashboard() {
     refetchInterval: 10_000,
   });
 
-  const score    = applicant?.creditScores?.[0];
-  const history  = applicant?.creditHistory;
-  const pending  = loans.filter((l) => l.loanStatus === "Pending").length;
+  const score = applicant?.creditScores?.[0];
+  const history = applicant?.creditHistory;
+  const pending = loans.filter((l) => l.loanStatus === "Pending").length;
   const approved = loans.filter((l) => l.loanStatus === "Approved");
   const totalBorrowed = approved.reduce((s, l) => s + l.loanAmount, 0);
 
@@ -89,10 +89,10 @@ export default function UserDashboard() {
         {/* Quick stat cards */}
         <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            { label: "Total Applications",  value: loans.length.toString(),                    icon: "description",          sub: "Loan applications filed" },
-            { label: "Pending Decisions",   value: pending.toString(),                          icon: "hourglass_empty",      sub: "Awaiting officer review" },
-            { label: "Total Borrowed",      value: `₹${totalBorrowed.toLocaleString()}`,        icon: "account_balance_wallet",sub: "Total approved amount"  },
-            { label: "Credit History",      value: `${history?.creditLengthYears ?? 0} yrs`,    icon: "history",              sub: `${history?.defaultCount ?? 0} defaults on record` },
+            { label: "Total Applications", value: loans.length.toString(), icon: "description", sub: "Loan applications filed" },
+            { label: "Pending Decisions", value: pending.toString(), icon: "hourglass_empty", sub: "Awaiting officer review" },
+            { label: "Total Borrowed", value: `₹${totalBorrowed.toLocaleString()}`, icon: "account_balance_wallet", sub: "Total approved amount" },
+            { label: "Credit History", value: `${history?.creditLengthYears ?? 0} yrs`, icon: "history", sub: `${history?.defaultCount ?? 0} defaults on record` },
           ].map(({ label, value, icon, sub }) => (
             <div key={label} className="bg-white p-5 rounded-xl shadow-sm border border-slate-100 flex flex-col gap-2">
               <div className="flex justify-between items-center">
@@ -123,34 +123,34 @@ export default function UserDashboard() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left min-w-[500px]">
-            <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
-              <tr>{["Loan Type", "Amount", "Tenure", "EMI", "Status", "Applied"].map((h) => <th key={h} className="px-5 py-3">{h}</th>)}</tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {loans.slice(0, 5).map((loan) => {
-                const r = (loan.loanType?.interestRate ?? 10) / 12 / 100;
-                const n = loan.tenureMonths;
-                const emi = r === 0 ? Math.round(loan.loanAmount / n) : Math.round((loan.loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
-                return (
-                  <tr key={loan.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-5 py-3.5 font-semibold text-slate-900">{loan.loanType?.loanTypeName}</td>
-                    <td className="px-5 py-3.5 font-semibold">₹{loan.loanAmount.toLocaleString()}</td>
-                    <td className="px-5 py-3.5 text-slate-500">{loan.tenureMonths} mo</td>
-                    <td className="px-5 py-3.5 font-semibold text-[var(--color-primary)]">₹{emi.toLocaleString()}/mo</td>
-                    <td className="px-5 py-3.5">
-                      <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${loan.loanStatus === "Approved" ? "bg-green-100 text-green-800" : loan.loanStatus === "Rejected" ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"}`}>
-                        {loan.loanStatus}
-                      </span>
-                    </td>
-                    <td className="px-5 py-3.5 text-slate-400 text-xs">{new Date(loan.applicationDate).toLocaleDateString()}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
+              <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
+                <tr>{["Loan Type", "Amount", "Tenure", "EMI", "Status", "Applied"].map((h) => <th key={h} className="px-5 py-3">{h}</th>)}</tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                {loans.slice(0, 5).map((loan) => {
+                  const r = (loan.loanType?.interestRate ?? 10) / 12 / 100;
+                  const n = loan.tenureMonths;
+                  const emi = r === 0 ? Math.round(loan.loanAmount / n) : Math.round((loan.loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
+                  return (
+                    <tr key={loan.id} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-5 py-3.5 font-semibold text-slate-900">{loan.loanType?.loanTypeName}</td>
+                      <td className="px-5 py-3.5 font-semibold">₹{loan.loanAmount.toLocaleString()}</td>
+                      <td className="px-5 py-3.5 text-slate-500">{loan.tenureMonths} mo</td>
+                      <td className="px-5 py-3.5 font-semibold text-[var(--color-primary)]">₹{emi.toLocaleString()}/mo</td>
+                      <td className="px-5 py-3.5">
+                        <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${loan.loanStatus === "Approved" ? "bg-green-100 text-green-800" : loan.loanStatus === "Rejected" ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"}`}>
+                          {loan.loanStatus}
+                        </span>
+                      </td>
+                      <td className="px-5 py-3.5 text-slate-400 text-xs">{new Date(loan.applicationDate).toLocaleDateString()}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
 }
