@@ -17,7 +17,7 @@ export default function OfficerLayout({ children }: { children: React.ReactNode 
   }, [router]);
 
   return (
-    <div className="flex bg-slate-50 min-h-screen relative overflow-hidden">
+    <div className="flex bg-slate-50 min-h-screen relative">
       {/* Mobile Sidebar Overlay */}
       {isSidebarOpen && (
         <div 

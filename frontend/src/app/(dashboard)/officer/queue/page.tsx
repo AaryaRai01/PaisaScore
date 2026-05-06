@@ -72,7 +72,7 @@ export default function OfficerQueuePage() {
 
       <div className="px-4 py-6 space-y-6">
         {/* Stats strip */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {[
             { label: "Pending", value: pending,  color: "text-yellow-600 bg-yellow-50 border-yellow-200" },
             { label: "Approved",       value: approved, color: "text-green-700 bg-green-50 border-green-200"   },
@@ -86,7 +86,7 @@ export default function OfficerQueuePage() {
         </div>
 
         {/* Table */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-100 w-full overflow-x-auto">
           {isLoading ? (
             <div className="p-12 flex items-center justify-center gap-3 text-slate-400">
               <span className="material-symbols-outlined animate-spin">progress_activity</span>
@@ -103,8 +103,7 @@ export default function OfficerQueuePage() {
               <p>No applications yet.</p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left min-w-[800px]">
+            <table className="w-full text-sm text-left min-w-[800px]">
               <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
                 <tr>
                   {["#", "Applicant", "Loan Type", "Amount", "Tenure", "Score", "Officer", "Status", "Action"].map((h) => (
@@ -173,8 +172,7 @@ export default function OfficerQueuePage() {
                 })}
               </tbody>
             </table>
-          </div>
-        )}
+          )}
       </div>
     </div>
     </div>

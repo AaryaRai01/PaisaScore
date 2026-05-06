@@ -18,7 +18,7 @@ export default function ApplicantDirectoryPage() {
   });
 
   return (
-    <div className="p-2 sm:p-4 lg:p-8 space-y-4 lg:space-y-8 max-w-[100vw] overflow-hidden">
+    <div className="p-2 sm:p-4 lg:p-8 space-y-4 lg:space-y-8">
       <header>
         <h2 className="font-headline text-lg lg:text-3xl font-extrabold text-slate-900 tracking-tight">Applicants</h2>
         <p className="text-slate-500 text-[10px] lg:text-sm mt-0.5">{applicants.length} registered</p>

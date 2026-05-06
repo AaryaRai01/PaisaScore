@@ -15,7 +15,7 @@ export default function LoanMonitorPage() {
   const totalPortfolio = approved.reduce((s, l) => s + l.loanAmount, 0);
 
   return (
-    <div className="p-4 lg:p-8 space-y-6 lg:space-y-8 max-w-[100vw] overflow-hidden">
+    <div className="p-4 lg:p-8 space-y-6 lg:space-y-8">
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
           <h2 className="font-headline text-lg lg:text-3xl font-extrabold text-slate-900 tracking-tight">Loan Monitor</h2>

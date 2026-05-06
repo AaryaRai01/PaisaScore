@@ -112,20 +112,20 @@ export default function OfficerReportsPage() {
         </div>
       </header>
 
-      {/* KPI Cards - Stacked on Mobile */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      {/* KPI Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
         {[
           { label: "Portfolio Value",  value: `₹${((analytics?.totalPortfolioValue ?? 0) / 100000).toFixed(1)}L`, icon: "account_balance_wallet", accent: true  },
           { label: "Approval Rate",    value: `${analytics?.approvalRate ?? 0}%`,                                  icon: "trending_up",            accent: false },
           { label: "Avg Credit Score", value: analytics?.avgCreditScore ?? 0,                                       icon: "grade",                  accent: false },
           { label: "High Risk Cases",   value: analytics?.highRiskCount ?? 0,                                       icon: "warning",                accent: false },
         ].map(({ label, value, icon, accent }) => (
-          <div key={label} className={`p-6 rounded-xl shadow-sm border ${accent ? "bg-[var(--color-primary)] border-transparent text-white" : "bg-white border-slate-100"}`}>
-            <div className="flex justify-between items-start mb-3">
-              <span className={`text-[10px] font-bold uppercase tracking-wider ${accent ? "text-white/70" : "text-slate-500"}`}>{label}</span>
-              <span className={`material-symbols-outlined text-xl ${accent ? "text-white/80" : "text-[var(--color-primary)]"}`} style={{ fontVariationSettings: "'FILL' 1" }}>{icon}</span>
+          <div key={label} className={`p-4 rounded-xl shadow-sm border flex flex-col justify-between ${accent ? "bg-[var(--color-primary)] border-transparent text-white" : "bg-white border-slate-100"}`}>
+            <div className="flex justify-between items-start mb-2">
+              <span className={`text-[8px] lg:text-[10px] font-bold uppercase tracking-wider ${accent ? "text-white/70" : "text-slate-500"}`}>{label}</span>
+              <span className={`material-symbols-outlined text-lg lg:text-xl ${accent ? "text-white/80" : "text-[var(--color-primary)]"}`} style={{ fontVariationSettings: "'FILL' 1" }}>{icon}</span>
             </div>
-            <span className={`font-headline text-3xl font-extrabold ${accent ? "text-white" : "text-slate-900"}`}>{value}</span>
+            <span className={`font-headline text-xl lg:text-3xl font-extrabold ${accent ? "text-white" : "text-slate-900"}`}>{value}</span>
           </div>
         ))}
       </div>
@@ -232,7 +232,7 @@ export default function OfficerReportsPage() {
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto">
+        <div className="w-full overflow-x-auto">
           <table className="w-full text-sm text-left min-w-[1000px]">
             <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
               <tr>

@@ -62,7 +62,7 @@ export default function OfficerDashboard() {
   ];
 
   return (
-    <div className="p-2 sm:p-4 lg:p-8 space-y-4 lg:space-y-8 max-w-[100vw] overflow-hidden">
+    <div className="p-2 sm:p-4 lg:p-8 space-y-4 lg:space-y-8">
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
           <h2 className="font-headline text-lg lg:text-3xl font-extrabold text-slate-900 tracking-tight">Dashboard</h2>
@@ -76,8 +76,8 @@ export default function OfficerDashboard() {
         </Link>
       </header>
 
-      {/* KPI Grid - Stacked on Mobile */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 lg:gap-5">
+      {/* KPI Grid */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
         {stats.map(({ label, value, icon, accent }) => (
           <div key={label} className={`p-4 rounded-xl shadow-sm border flex flex-col gap-2 ${accent ? "bg-[var(--color-primary)] border-transparent text-white shadow-[var(--color-primary)]/20" : "bg-white border-slate-100"}`}>
             <div className="flex justify-between items-center">
@@ -101,7 +101,7 @@ export default function OfficerDashboard() {
             <p>Queue is clear. No pending applications.</p>
           </div>
         ) : (
-        <div className="overflow-x-auto">
+        <div className="w-full overflow-x-auto">
           <table className="w-full text-sm text-left min-w-[600px]">
             <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
               <tr>
