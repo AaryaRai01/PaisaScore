@@ -122,8 +122,8 @@ export default function OfficerReportsPage() {
         </div>
       </header>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 lg:gap-5">
+      {/* KPI Cards - Stacked on Mobile */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {[
           { label: "Portfolio Value",  value: `₹${((analytics?.totalPortfolioValue ?? 0) / 100000).toFixed(1)}L`, icon: "account_balance_wallet", accent: true  },
           { label: "Approval Rate",    value: `${analytics?.approvalRate ?? 0}%`,                                  icon: "trending_up",            accent: false },

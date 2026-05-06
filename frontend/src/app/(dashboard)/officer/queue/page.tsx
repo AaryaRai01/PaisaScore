@@ -40,14 +40,14 @@ export default function OfficerQueuePage() {
 
   return (
     <div className="space-y-0">
-      <header className="sticky top-0 bg-white/90 backdrop-blur-xl border-b border-slate-100 px-8 py-5 flex justify-between items-center z-40">
+      <header className="sticky top-0 bg-white/90 backdrop-blur-xl border-b border-slate-100 px-4 py-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 z-40">
         <div>
-          <h2 className="font-headline text-2xl font-bold text-slate-900">Application Queue</h2>
-          <div className="flex items-center gap-4 mt-0.5">
-            <p className="text-slate-500 text-sm">{loans.length} total · auto-refreshes every 10s</p>
-            <div className="h-4 w-[1px] bg-slate-200" />
+          <h2 className="font-headline text-xl lg:text-2xl font-bold text-slate-900">Application Queue</h2>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mt-1">
+            <p className="text-slate-500 text-xs">{loans.length} total applications</p>
+            <div className="hidden sm:block h-4 w-[1px] bg-slate-200" />
             <div className="flex items-center gap-3">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{startRange}-{endRange} of {loans.length}</span>
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{startRange}-{endRange} of {loans.length}</span>
               <div className="flex bg-slate-50 rounded-lg p-0.5 border border-slate-100">
                 <button 
                   onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
@@ -70,9 +70,9 @@ export default function OfficerQueuePage() {
         </div>
       </header>
 
-      <div className="px-8 py-8 space-y-6">
+      <div className="px-4 py-6 space-y-6">
         {/* Stats strip */}
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5">
           {[
             { label: "Pending Review", value: pending,  color: "text-yellow-600 bg-yellow-50 border-yellow-200" },
             { label: "Approved",       value: approved, color: "text-green-700 bg-green-50 border-green-200"   },
@@ -103,7 +103,8 @@ export default function OfficerQueuePage() {
               <p>No applications yet.</p>
             </div>
           ) : (
-            <table className="w-full text-sm text-left">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm text-left min-w-[800px]">
               <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
                 <tr>
                   {["#", "Applicant", "Loan Type", "Amount", "Tenure", "Score", "Officer", "Status", "Action"].map((h) => (
@@ -172,9 +173,10 @@ export default function OfficerQueuePage() {
                 })}
               </tbody>
             </table>
-          )}
-        </div>
+          </div>
+        )}
       </div>
+    </div>
     </div>
   );
 }

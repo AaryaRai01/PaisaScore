@@ -78,23 +78,23 @@ export default function OfficerSidebar({ isOpen, onClose }: { isOpen?: boolean; 
       </nav>
 
       {/* Officer badge + logout */}
-      <div className="px-4 py-5 border-t border-slate-800 space-y-3">
-        <div className="flex items-center gap-3 px-3 py-2">
-          <div className="w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center flex-shrink-0">
-            <span className="material-symbols-outlined text-indigo-400 text-sm">admin_panel_settings</span>
-          </div>
-          <div className="min-w-0">
-            <p className="text-white text-xs font-bold truncate">{officerName}</p>
-            <p className="text-slate-500 text-[10px]">Senior Credit Analyst</p>
-          </div>
-        </div>
+      <div className="px-4 py-4 border-t border-slate-800 space-y-4">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-2 px-4 py-2.5 text-slate-500 hover:text-red-400 hover:bg-red-500/5 rounded-xl text-sm transition-all"
+          className="w-full flex items-center gap-2 px-4 py-2.5 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-xl text-sm font-bold transition-all"
         >
           <span className="material-symbols-outlined text-base">logout</span>
           Sign Out
         </button>
+        
+        <div className="flex items-center gap-3 px-3 py-1 opacity-60">
+          <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center flex-shrink-0">
+            <span className="material-symbols-outlined text-slate-400 text-sm">admin_panel_settings</span>
+          </div>
+          <div className="min-w-0">
+            <p className="text-white text-[10px] font-bold truncate">{officerName}</p>
+          </div>
+        </div>
       </div>
     </aside>
   );

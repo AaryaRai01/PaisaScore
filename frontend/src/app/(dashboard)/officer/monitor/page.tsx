@@ -15,15 +15,15 @@ export default function LoanMonitorPage() {
   const totalPortfolio = approved.reduce((s, l) => s + l.loanAmount, 0);
 
   return (
-    <div className="p-8 space-y-8">
-      <header className="flex justify-between items-start">
+    <div className="p-4 lg:p-8 space-y-6 lg:space-y-8 max-w-[100vw] overflow-hidden">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="font-headline text-3xl font-extrabold text-slate-900">Loan Monitor</h2>
-          <p className="text-slate-500 mt-1">All approved &amp; active loans — real-time repayment tracking</p>
+          <h2 className="font-headline text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">Loan Monitor</h2>
+          <p className="text-slate-500 text-sm mt-1">All approved & active loans — real-time repayment tracking</p>
         </div>
-        <div className="text-right">
-          <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Active Portfolio</p>
-          <p className="font-headline text-2xl font-extrabold text-[var(--color-primary)]">₹{totalPortfolio.toLocaleString()}</p>
+        <div className="text-left sm:text-right">
+          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Active Portfolio</p>
+          <p className="font-headline text-2xl lg:text-3xl font-extrabold text-[var(--color-primary)]">₹{totalPortfolio.toLocaleString()}</p>
         </div>
       </header>
 
