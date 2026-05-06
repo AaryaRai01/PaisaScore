@@ -33,7 +33,7 @@ PaisaScore is a comprehensive **Credit Risk Assessment and Loan Management Platf
 
 ### Prerequisites
 - Node.js (v18+)
-- MySQL Server
+- MySQL Server (Local or Cloud)
 - npm or yarn
 
 ### 1. Clone the Repository
@@ -47,19 +47,19 @@ cd PaisaScore
 cd backend
 npm install
 ```
-- Create a `.env` file based on `.env.example`:
-```env
-DATABASE_URL="mysql://USER:PASSWORD@localhost:3306/PaisaScore"
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=your_password
-DB_NAME=PaisaScore
-```
-- Initialize the database:
+- Create a `.env` file based on `.env.example`.
+- **Database Initialization**:
 ```bash
-npx prisma migrate dev
-# Or import the SQL dump
-npm run db:schema
+# Push schema to database
+npx prisma db push
+
+# (Optional) Seed initial data
+npm run seed
+```
+- **Production Build**:
+```bash
+npm run build
+npm start
 ```
 
 ### 3. Frontend Setup
@@ -68,6 +68,28 @@ cd ../frontend
 npm install
 npm run dev
 ```
+
+---
+
+## 🌐 Deployment (Cloud)
+
+PaisaScore is deployment-ready and optimized for the following **Free Tier** stack:
+
+| Service | Component | Purpose |
+| :--- | :--- | :--- |
+| **Aiven** | MySQL Database | Free managed MySQL instance |
+| **Render** | Node.js Backend | API hosting with automatic builds |
+| **Vercel** | Next.js Frontend | High-performance static & SSR hosting |
+
+### Environment Variables Checklist
+
+#### Backend
+- `DATABASE_URL`: Your cloud MySQL connection string.
+- `FRONTEND_URL`: Your deployed Vercel URL (e.g., `https://paisascore.vercel.app`).
+- `PORT`: (Auto-set by Render).
+
+#### Frontend
+- `NEXT_PUBLIC_API_URL`: Your deployed Render API URL (e.g., `https://paisascore-api.onrender.com/api`).
 
 ---
 
