@@ -22,11 +22,11 @@ export default function UserApplicationsPage() {
   });
 
   return (
-    <div className="p-8 space-y-8">
-      <header className="flex justify-between items-start">
+    <div className="p-4 lg:p-8 space-y-6 lg:space-y-8">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="font-headline text-3xl font-extrabold text-slate-900">My Applications</h2>
-          <p className="text-slate-500 mt-1">All loan applications linked to your account · auto-refreshes</p>
+          <h2 className="font-headline text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">My Applications</h2>
+          <p className="text-slate-500 text-sm mt-1">All loan applications linked to your account · auto-refreshes</p>
         </div>
         <Link href="/user/apply">
           <button className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white rounded-xl font-semibold text-sm shadow-md shadow-[var(--color-primary)]/20 hover:opacity-90 transition-opacity">
@@ -63,7 +63,7 @@ export default function UserApplicationsPage() {
                   </div>
 
                   {/* Details */}
-                  <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                  <div className="flex-1 grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
                     <div>
                       <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wide mb-0.5">Loan Type</p>
                       <p className="font-bold text-slate-900">{loan.loanType?.loanTypeName}</p>

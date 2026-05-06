@@ -55,7 +55,7 @@ function LoanRepaymentCard({ loan }: { loan: LoanApplication }) {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 text-center">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 text-center">
         {[
           { label: "Monthly EMI",   value: `₹${emi.toLocaleString()}`, highlight: true },
           { label: "Paid So Far",   value: `₹${totalPaid.toLocaleString()}` },
@@ -138,7 +138,7 @@ export default function UserRepaymentsPage() {
   const approved = loans.filter((l) => l.loanStatus === "Approved");
 
   return (
-    <div className="p-8 space-y-8">
+    <div className="p-4 lg:p-8 space-y-6 lg:space-y-8">
       <header>
         <h2 className="font-headline text-3xl font-extrabold text-slate-900">Repayments</h2>
         <p className="text-slate-500 mt-1">Track EMI payments for your approved loans.</p>

@@ -87,7 +87,7 @@ export default function UserDashboard() {
         </div>
 
         {/* Quick stat cards */}
-        <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
+        <div className="lg:col-span-8 grid grid-cols-2 gap-3 lg:gap-4">
           {[
             { label: "Total Applications", value: loans.length.toString(), icon: "description", sub: "Loan applications filed" },
             { label: "Pending Decisions", value: pending.toString(), icon: "hourglass_empty", sub: "Awaiting officer review" },
