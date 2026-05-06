@@ -219,7 +219,7 @@ export default function LoginPage() {
     setSignupForm((p) => ({ ...p, [k]: e.target.value }));
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4 py-16 relative overflow-hidden">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4 py-8 lg:py-16 relative overflow-hidden">
       {/* Dynamic background: purely white around logo, subtle gradient elsewhere */}
       <div 
         className="absolute inset-0 z-0"
@@ -242,10 +242,10 @@ export default function LoginPage() {
       <div className="relative z-10 w-full max-w-5xl space-y-10">
         {/* ── Brand header ── */}
         <div className="text-center space-y-1">
-          <div className="flex items-center justify-center mb-0 transition-transform hover:scale-105 duration-500">
-            <PaisaScoreLogo height={100} />
+          <div className="flex items-center justify-center mb-0 transition-transform hover:scale-105 duration-500 scale-90 sm:scale-100">
+            <PaisaScoreLogo height={80} />
           </div>
-          <p className="text-lg text-slate-500 font-medium tracking-tight animate-fade-in">
+          <p className="text-base lg:text-lg text-slate-500 font-medium tracking-tight animate-fade-in px-4 leading-snug">
             Simplifying finance through <span className="text-[var(--color-primary)] font-bold">intelligent technology.</span>
           </p>
         </div>
@@ -254,7 +254,7 @@ export default function LoginPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
 
           {/* ════ USER CARD ════ */}
-          <div className="bg-slate-50 border border-slate-200 rounded-3xl p-7 shadow-sm flex flex-col gap-5">
+          <div className="bg-slate-50 border border-slate-200 rounded-3xl p-5 sm:p-7 shadow-sm flex flex-col gap-5">
             {/* Header */}
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-xl bg-[var(--color-primary)]/15 flex items-center justify-center">
@@ -273,7 +273,7 @@ export default function LoginPage() {
               <Tab active={userTab === "signin"} onClick={() => { setUserTab("signin"); setSignupError(""); setSigninError(""); }}>
                 Sign In
               </Tab>
-              <Tab active={userTab === "signup"} onClick={() => { setUserTab("signup"); setSigninError(""); setSignupError(""); }}>
+              <Tab active={userTab === "signup"} onClick={() => { setUserTab("signup"); setSigninError(""); setSigninError(""); }}>
                 Create Account
               </Tab>
             </div>
@@ -401,7 +401,7 @@ export default function LoginPage() {
           </div>
 
           {/* ════ OFFICER CARD ════ */}
-          <div className="bg-slate-50 border border-slate-200 rounded-3xl p-7 shadow-sm flex flex-col gap-5">
+          <div className="bg-slate-50 border border-slate-200 rounded-3xl p-5 sm:p-7 shadow-sm flex flex-col gap-5">
             {/* Header */}
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-xl bg-indigo-100 flex items-center justify-center">

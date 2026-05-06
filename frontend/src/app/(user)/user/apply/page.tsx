@@ -62,14 +62,14 @@ export default function UserApplyPage() {
   };
 
   return (
-    <div className="p-8 max-w-3xl mx-auto space-y-10">
+    <div className="p-4 lg:p-8 max-w-3xl mx-auto space-y-8 lg:space-y-10">
       <header>
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-secondary-container)] text-[var(--color-on-secondary-container)] text-xs font-bold uppercase tracking-wider mb-4">
           <span className="w-1.5 h-1.5 bg-[var(--color-primary)] rounded-full animate-pulse" />
           Secure Application
         </div>
-        <h2 className="font-headline text-3xl font-extrabold text-slate-900 tracking-tight">Apply for a Loan</h2>
-        <p className="text-slate-500 mt-2">Select a loan type and fill in the details. Instant credit assessment.</p>
+        <h2 className="font-headline text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">Apply for a Loan</h2>
+        <p className="text-slate-500 text-sm lg:text-base mt-2">Select a loan type and fill in the details. Instant credit assessment.</p>
       </header>
 
       {/* Step 1: Choose Loan Type */}
@@ -153,12 +153,12 @@ export default function UserApplyPage() {
 
             {/* EMI preview */}
             {emi > 0 && (
-              <div className="bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/20 rounded-xl p-4 flex items-center justify-between">
-                <div>
+              <div className="bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/20 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="text-center sm:text-left">
                   <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-0.5">Estimated Monthly EMI</p>
                   <p className="font-headline text-2xl font-extrabold text-[var(--color-primary)]">₹{emi.toLocaleString()}</p>
                 </div>
-                <div className="text-right text-xs text-slate-500">
+                <div className="text-center sm:text-right text-xs text-slate-500">
                   <p>Total repayment</p>
                   <p className="font-bold text-slate-800">₹{(emi * Number(tenure)).toLocaleString()}</p>
                 </div>

@@ -62,14 +62,14 @@ export default function OfficerDashboard() {
   ];
 
   return (
-    <div className="p-8 space-y-8">
-      <header className="flex justify-between items-center">
+    <div className="p-4 lg:p-8 space-y-6 lg:space-y-8">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="font-headline text-3xl font-extrabold text-slate-900 tracking-tight">Officer Dashboard</h2>
-          <p className="text-slate-500 mt-1">Welcome back, {officerName}. Here&apos;s your portfolio overview.</p>
+          <h2 className="font-headline text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">Officer Dashboard</h2>
+          <p className="text-slate-500 text-sm mt-1">Welcome back, {officerName}. Portfolio overview.</p>
         </div>
-        <Link href="/officer/queue">
-          <button className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white rounded-xl font-semibold text-sm shadow-md shadow-[var(--color-primary)]/20 hover:opacity-90 transition-opacity">
+        <Link href="/officer/queue" className="w-full sm:w-auto">
+          <button className="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white rounded-xl font-semibold text-sm shadow-md shadow-[var(--color-primary)]/20 hover:opacity-90 transition-opacity">
             <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>inbox</span>
             Review Queue ({analytics?.pendingQueue ?? 0})
           </button>
@@ -77,7 +77,7 @@ export default function OfficerDashboard() {
       </header>
 
       {/* KPI Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 lg:gap-5">
         {stats.map(({ label, value, icon, accent }) => (
           <div key={label} className={`p-5 rounded-xl shadow-sm border flex flex-col gap-3 ${accent ? "bg-[var(--color-primary)] border-transparent text-white shadow-[var(--color-primary)]/20" : "bg-white border-slate-100"}`}>
             <div className="flex justify-between items-center">
@@ -101,7 +101,8 @@ export default function OfficerDashboard() {
             <p>Queue is clear. No pending applications.</p>
           </div>
         ) : (
-          <table className="w-full text-sm text-left">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-left min-w-[600px]">
             <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
               <tr>
                 {["Applicant", "Loan Type", "Amount", "Credit Score", "Risk", "Action"].map((h) => (
@@ -160,7 +161,7 @@ export default function OfficerDashboard() {
               })}
             </tbody>
           </table>
-        )}
+        </div>
       </div>
     </div>
   );

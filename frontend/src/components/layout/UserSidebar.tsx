@@ -14,7 +14,7 @@ const navLinks = [
   { href: "/user/repayments",   label: "Repayments",      icon: "payments"      },
 ];
 
-export default function UserSidebar() {
+export default function UserSidebar({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
   const [applicantName, setApplicantName] = useState<string>("Account");
@@ -34,13 +34,21 @@ export default function UserSidebar() {
   };
 
   return (
-    <aside className="h-screen w-64 fixed left-0 top-0 bg-white border-r border-slate-100 flex flex-col z-50">
+    <aside className={`h-screen w-64 fixed left-0 top-0 bg-white border-r border-slate-100 flex flex-col z-50 transition-transform duration-300 ${
+      isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+    }`}>
       {/* Brand */}
-      <div className="px-5 py-6 bg-white border-b border-slate-100">
+      <div className="px-5 py-6 bg-white border-b border-slate-100 flex items-center justify-between">
         <div className="flex flex-col items-start gap-1">
           <PaisaScoreLogo height={60} className="-ml-1" />
           <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em] font-black ml-1">Borrower Portal</p>
         </div>
+        <button 
+          onClick={onClose}
+          className="lg:hidden p-2 text-slate-400 hover:text-slate-600"
+        >
+          <span className="material-symbols-outlined">close</span>
+        </button>
       </div>
 
       {/* User welcome badge */}
@@ -64,6 +72,7 @@ export default function UserSidebar() {
             <Link
               key={href}
               href={href}
+              onClick={onClose}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all group ${
                 active
                   ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)] font-semibold"

@@ -41,6 +41,8 @@ model CreditScore {
   riskCategory String
   scoreDate    DateTime
   applicant    Applicant @relation(fields: [applicantId], references: [id])
+
+  @@index([applicantId], map: "CreditScore_applicantId_fkey")
 }
 
 model LoanType {
@@ -62,10 +64,14 @@ model LoanApplication {
   loanStatus       String            @default("Pending")
   officerId        Int?
   approvalDecision ApprovalDecision?
-  officer          Officer?          @relation(fields: [officerId], references: [id])
-  loanType         LoanType          @relation(fields: [loanTypeId], references: [id])
   applicant        Applicant         @relation(fields: [applicantId], references: [id])
+  loanType         LoanType          @relation(fields: [loanTypeId], references: [id])
+  officer          Officer?          @relation(fields: [officerId], references: [id])
   repayments       Repayment[]
+
+  @@index([applicantId], map: "LoanApplication_applicantId_fkey")
+  @@index([loanTypeId], map: "LoanApplication_loanTypeId_fkey")
+  @@index([officerId], map: "LoanApplication_officerId_fkey")
 }
 
 model ApprovalDecision {
@@ -75,8 +81,10 @@ model ApprovalDecision {
   decisionReason String
   decisionDate   DateTime        @default(now())
   officerId      Int?            @default(1)
-  officer        Officer?        @relation(fields: [officerId], references: [id])
   loan           LoanApplication @relation(fields: [loanId], references: [id])
+  officer        Officer?        @relation(fields: [officerId], references: [id])
+
+  @@index([officerId], map: "ApprovalDecision_officerId_fkey")
 }
 
 model Repayment {
@@ -87,6 +95,8 @@ model Repayment {
   remainingAmount Float
   paymentStatus   String
   loan            LoanApplication @relation(fields: [loanId], references: [id])
+
+  @@index([loanId], map: "Repayment_loanId_fkey")
 }
 
 model Officer {

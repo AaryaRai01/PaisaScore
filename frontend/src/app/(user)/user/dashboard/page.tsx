@@ -43,17 +43,17 @@ export default function UserDashboard() {
   const gaugeOffset = score ? 263.9 - 263.9 * (score.creditScore / 900) : 263.9;
 
   return (
-    <div className="p-8 space-y-8">
+    <div className="p-4 lg:p-8 space-y-6 lg:space-y-8">
       {/* Welcome */}
-      <header className="flex justify-between items-start">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="font-headline text-3xl font-extrabold text-slate-900">
+          <h2 className="font-headline text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">
             Welcome back, {name.split(" ")[0]} 👋
           </h2>
-          <p className="text-slate-500 mt-1">Here&apos;s your financial overview for today.</p>
+          <p className="text-slate-500 text-sm mt-1">Your financial overview for today.</p>
         </div>
-        <Link href="/user/apply">
-          <button className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white rounded-xl font-semibold text-sm shadow-md shadow-[var(--color-primary)]/20 hover:opacity-90 transition-opacity">
+        <Link href="/user/apply" className="w-full sm:w-auto">
+          <button className="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white rounded-xl font-semibold text-sm shadow-md shadow-[var(--color-primary)]/20 hover:opacity-90 transition-opacity">
             <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_card</span>
             Apply for Loan
           </button>
@@ -87,7 +87,7 @@ export default function UserDashboard() {
         </div>
 
         {/* Quick stat cards */}
-        <div className="md:col-span-8 grid grid-cols-2 gap-4">
+        <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
             { label: "Total Applications",  value: loans.length.toString(),                    icon: "description",          sub: "Loan applications filed" },
             { label: "Pending Decisions",   value: pending.toString(),                          icon: "hourglass_empty",      sub: "Awaiting officer review" },
@@ -120,8 +120,8 @@ export default function UserDashboard() {
               <button className="px-6 py-2.5 bg-[var(--color-primary)] text-white rounded-xl text-sm font-bold">Apply Now →</button>
             </Link>
           </div>
-        ) : (
-          <table className="w-full text-sm text-left">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-left min-w-[500px]">
             <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
               <tr>{["Loan Type", "Amount", "Tenure", "EMI", "Status", "Applied"].map((h) => <th key={h} className="px-5 py-3">{h}</th>)}</tr>
             </thead>
@@ -147,7 +147,7 @@ export default function UserDashboard() {
               })}
             </tbody>
           </table>
-        )}
+        </div>
       </div>
     </div>
   );
