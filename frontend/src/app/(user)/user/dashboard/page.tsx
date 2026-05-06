@@ -43,17 +43,17 @@ export default function UserDashboard() {
   const gaugeOffset = score ? 263.9 - 263.9 * (score.creditScore / 900) : 263.9;
 
   return (
-    <div className="p-4 lg:p-8 space-y-6 lg:space-y-8">
+    <div className="p-3 sm:p-4 lg:p-8 space-y-5 lg:space-y-8">
       {/* Welcome */}
-      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
         <div>
-          <h2 className="font-headline text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="font-headline text-xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Welcome back, {name.split(" ")[0]} 👋
           </h2>
-          <p className="text-slate-500 text-sm mt-1">Your financial overview for today.</p>
+          <p className="text-slate-500 text-xs lg:text-sm mt-0.5 lg:mt-1">Your financial overview for today.</p>
         </div>
         <Link href="/user/apply" className="w-full sm:w-auto">
-          <button className="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] text-white rounded-xl font-semibold text-sm shadow-md shadow-[var(--color-primary)]/20 hover:opacity-90 transition-opacity">
+          <button className="w-full flex items-center justify-center gap-2 px-4 py-2 lg:px-5 lg:py-2.5 bg-[var(--color-primary)] text-white rounded-xl font-semibold text-sm shadow-md shadow-[var(--color-primary)]/20 hover:opacity-90 transition-opacity">
             <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_card</span>
             Apply for Loan
           </button>
@@ -61,11 +61,11 @@ export default function UserDashboard() {
       </header>
 
       {/* Top row: Score gauge + stats */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <div className="flex flex-col lg:grid lg:grid-cols-12 gap-5 lg:gap-6">
         {/* Credit Score Card */}
-        <div className="md:col-span-4 bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex flex-col items-center gap-5">
-          <h3 className="font-headline font-bold text-slate-900 text-lg self-start">My Credit Score</h3>
-          <div className="relative w-44 h-44">
+        <div className="lg:col-span-4 bg-white rounded-2xl shadow-sm border border-slate-100 p-5 lg:p-6 flex flex-col items-center gap-4 lg:gap-5">
+          <h3 className="font-headline font-bold text-slate-900 text-base lg:text-lg self-start">My Credit Score</h3>
+          <div className="relative w-36 h-36 lg:w-44 lg:h-44">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="42" fill="none" stroke="var(--color-surface-container)" strokeWidth="9" />
               <circle
@@ -75,32 +75,32 @@ export default function UserDashboard() {
               />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="font-headline text-5xl font-extrabold text-slate-900">{score?.creditScore ?? "—"}</span>
-              <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">/ 900</span>
+              <span className="font-headline text-4xl lg:text-5xl font-extrabold text-slate-900">{score?.creditScore ?? "—"}</span>
+              <span className="text-[10px] lg:text-xs text-slate-400 font-bold uppercase tracking-wider">/ 900</span>
             </div>
           </div>
           {score && (
-            <div className={`px-4 py-2 rounded-full text-sm font-bold ${riskColor[score.riskCategory]}`}>
+            <div className={`px-3 py-1.5 lg:px-4 lg:py-2 rounded-full text-xs lg:text-sm font-bold ${riskColor[score.riskCategory]}`}>
               {score.riskCategory} Risk
             </div>
           )}
         </div>
 
         {/* Quick stat cards */}
-        <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
           {[
             { label: "Total Applications", value: loans.length.toString(), icon: "description", sub: "Loan applications filed" },
             { label: "Pending Decisions", value: pending.toString(), icon: "hourglass_empty", sub: "Awaiting officer review" },
             { label: "Total Borrowed", value: `₹${totalBorrowed.toLocaleString()}`, icon: "account_balance_wallet", sub: "Total approved amount" },
             { label: "Credit History", value: `${history?.creditLengthYears ?? 0} yrs`, icon: "history", sub: `${history?.defaultCount ?? 0} defaults on record` },
           ].map(({ label, value, icon, sub }) => (
-            <div key={label} className="bg-white p-5 rounded-xl shadow-sm border border-slate-100 flex flex-col gap-2">
+            <div key={label} className="bg-white p-4 lg:p-5 rounded-xl shadow-sm border border-slate-100 flex flex-col gap-1.5 lg:gap-2">
               <div className="flex justify-between items-center">
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{label}</span>
-                <span className="material-symbols-outlined text-[var(--color-primary)] text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>{icon}</span>
+                <span className="text-[9px] lg:text-[10px] text-slate-500 font-bold uppercase tracking-wider">{label}</span>
+                <span className="material-symbols-outlined text-[var(--color-primary)] text-lg lg:text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>{icon}</span>
               </div>
-              <span className="font-headline text-2xl font-extrabold text-slate-900">{value}</span>
-              <span className="text-xs text-slate-400">{sub}</span>
+              <span className="font-headline text-xl lg:text-2xl font-extrabold text-slate-900">{value}</span>
+              <span className="text-[10px] lg:text-xs text-slate-400">{sub}</span>
             </div>
           ))}
         </div>

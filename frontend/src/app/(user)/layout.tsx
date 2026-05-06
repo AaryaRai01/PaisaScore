@@ -30,7 +30,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
       
       <div className="flex-1 lg:ml-64 min-h-screen flex flex-col">
         {/* Mobile Header */}
-        <header className="lg:hidden h-16 bg-white border-b border-slate-200 px-4 flex items-center justify-between sticky top-0 z-30">
+        <header className="lg:hidden h-14 bg-white border-b border-slate-200 px-4 flex items-center justify-between sticky top-0 z-30">
           <div className="flex items-center gap-2">
             <button 
               onClick={() => setIsSidebarOpen(true)}
@@ -42,7 +42,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
 
-        <main className="flex-1 p-4 lg:p-8">
+        <main className="flex-1 min-w-0">
           {children}
         </main>
       </div>
