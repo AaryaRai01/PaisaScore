@@ -121,33 +121,66 @@ export default function UserDashboard() {
             </Link>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left min-w-[500px]">
-              <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
-                <tr>{["Loan Type", "Amount", "Tenure", "EMI", "Status"].map((h) => <th key={h} className="px-5 py-3">{h}</th>)}</tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
-                {loans.slice(0, 3).map((loan) => {
-                  const r = (loan.loanType?.interestRate ?? 10) / 12 / 100;
-                  const n = loan.tenureMonths;
-                  const emi = r === 0 ? Math.round(loan.loanAmount / n) : Math.round((loan.loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
-                  return (
-                    <tr key={loan.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-5 py-4 font-semibold text-slate-900">{loan.loanType?.loanTypeName}</td>
-                      <td className="px-5 py-4 font-semibold">₹{loan.loanAmount.toLocaleString()}</td>
-                      <td className="px-5 py-4 text-slate-500">{loan.tenureMonths} mo</td>
-                      <td className="px-5 py-4 font-semibold text-[var(--color-primary)]">₹{emi.toLocaleString()}</td>
-                      <td className="px-5 py-4">
-                        <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${loan.loanStatus === "Approved" ? "bg-green-100 text-green-800" : loan.loanStatus === "Rejected" ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"}`}>
-                          {loan.loanStatus}
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+          <>
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-sm text-left min-w-[500px]">
+                <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
+                  <tr>{["Loan Type", "Amount", "Tenure", "EMI", "Status"].map((h) => <th key={h} className="px-5 py-3">{h}</th>)}</tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50">
+                  {loans.slice(0, 3).map((loan) => {
+                    const r = (loan.loanType?.interestRate ?? 10) / 12 / 100;
+                    const n = loan.tenureMonths;
+                    const emi = r === 0 ? Math.round(loan.loanAmount / n) : Math.round((loan.loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
+                    return (
+                      <tr key={loan.id} className="hover:bg-slate-50 transition-colors">
+                        <td className="px-5 py-4 font-semibold text-slate-900">{loan.loanType?.loanTypeName}</td>
+                        <td className="px-5 py-4 font-semibold">₹{loan.loanAmount.toLocaleString()}</td>
+                        <td className="px-5 py-4 text-slate-500">{loan.tenureMonths} mo</td>
+                        <td className="px-5 py-4 font-semibold text-[var(--color-primary)]">₹{emi.toLocaleString()}</td>
+                        <td className="px-5 py-4">
+                          <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${loan.loanStatus === "Approved" ? "bg-green-100 text-green-800" : loan.loanStatus === "Rejected" ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"}`}>
+                            {loan.loanStatus}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="md:hidden flex flex-col divide-y divide-slate-100">
+              {loans.slice(0, 3).map((loan) => {
+                const r = (loan.loanType?.interestRate ?? 10) / 12 / 100;
+                const n = loan.tenureMonths;
+                const emi = r === 0 ? Math.round(loan.loanAmount / n) : Math.round((loan.loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
+                return (
+                  <div key={loan.id} className="p-4 flex flex-col gap-3">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="font-bold text-slate-900">{loan.loanType?.loanTypeName}</div>
+                        <div className="text-xs text-slate-500 mt-0.5">{loan.tenureMonths} mo tenure</div>
+                      </div>
+                      <span className={`px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider ${loan.loanStatus === "Approved" ? "bg-green-100 text-green-800" : loan.loanStatus === "Rejected" ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"}`}>
+                        {loan.loanStatus}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-end">
+                      <div>
+                        <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Amount</p>
+                        <p className="font-bold text-slate-900 text-base">₹{loan.loanAmount.toLocaleString()}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">EMI</p>
+                        <p className="font-bold text-[var(--color-primary)] text-base">₹{emi.toLocaleString()}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>
     </div>

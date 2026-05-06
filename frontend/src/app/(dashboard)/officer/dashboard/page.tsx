@@ -101,67 +101,121 @@ export default function OfficerDashboard() {
             <p>Queue is clear. No pending applications.</p>
           </div>
         ) : (
-        <div className="w-full overflow-x-auto">
-          <table className="w-full text-sm text-left min-w-[600px]">
-            <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
-              <tr>
-                {["Applicant", "Loan Type", "Amount", "Credit Score", "Risk", "Action"].map((h) => (
-                  <th key={h} className="px-5 py-3">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
+          <>
+            {/* Desktop Table */}
+            <table className="hidden md:table w-full text-sm text-left min-w-[600px]">
+              <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
+                <tr>
+                  {["Applicant", "Loan Type", "Amount", "Credit Score", "Risk", "Action"].map((h) => (
+                    <th key={h} className="px-5 py-3">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                {pending.slice(0, 5).map((loan) => {
+                  const score = loan.applicant?.creditScores?.[0];
+                  return (
+                    <tr key={loan.id} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-5 py-4">
+                        <div className="font-semibold text-slate-900">{loan.applicant?.fullName}</div>
+                        <div className="text-xs text-slate-400">{loan.applicant?.employmentType}</div>
+                      </td>
+                      <td className="px-5 py-4 text-slate-700">{loan.loanType?.loanTypeName}</td>
+                      <td className="px-5 py-4 font-semibold">₹{loan.loanAmount.toLocaleString()}</td>
+                      <td className="px-5 py-4 font-bold text-[var(--color-primary)]">{score?.creditScore ?? "—"}</td>
+                      <td className="px-5 py-4">
+                        {score && (
+                          <span className={`px-2 py-1 rounded-full text-xs font-bold ${riskColor[score.riskCategory]}`}>
+                            {score.riskCategory}
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-5 py-4 flex gap-2">
+                        {loan.officerId === officerId || !loan.officerId ? (
+                          <Link href={`/officer/review/${loan.id}`}>
+                            <button className="flex items-center gap-1 text-[var(--color-primary)] font-bold text-xs hover:underline">
+                              <span className="material-symbols-outlined text-sm">open_in_new</span>Review
+                            </button>
+                          </Link>
+                        ) : (
+                          <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-lg">ASSIGNED</span>
+                        )}
+                        
+                        {!loan.officerId && (
+                          <button 
+                            onClick={async () => {
+                              try {
+                                await api.patch(`/loan-applications/${loan.id}/assign`, { officerId });
+                                window.location.reload();
+                              } catch (e) {
+                                alert("Claim failed.");
+                              }
+                            }}
+                            className="text-[10px] font-bold text-white bg-[var(--color-primary)] px-2 py-1 rounded-lg hover:opacity-90 active:scale-95 transition-all"
+                          >
+                            CLAIM
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+
+            {/* Mobile Cards */}
+            <div className="md:hidden flex flex-col divide-y divide-slate-100">
               {pending.slice(0, 5).map((loan) => {
                 const score = loan.applicant?.creditScores?.[0];
                 return (
-                  <tr key={loan.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-5 py-4">
-                      <div className="font-semibold text-slate-900">{loan.applicant?.fullName}</div>
-                      <div className="text-xs text-slate-400">{loan.applicant?.employmentType}</div>
-                    </td>
-                    <td className="px-5 py-4 text-slate-700">{loan.loanType?.loanTypeName}</td>
-                    <td className="px-5 py-4 font-semibold">₹{loan.loanAmount.toLocaleString()}</td>
-                    <td className="px-5 py-4 font-bold text-[var(--color-primary)]">{score?.creditScore ?? "—"}</td>
-                    <td className="px-5 py-4">
-                      {score && (
-                        <span className={`px-2 py-1 rounded-full text-xs font-bold ${riskColor[score.riskCategory]}`}>
-                          {score.riskCategory}
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-5 py-4">
-                      {loan.officerId === officerId || !loan.officerId ? (
-                        <Link href={`/officer/review/${loan.id}`}>
-                          <button className="flex items-center gap-1 text-[var(--color-primary)] font-bold text-xs hover:underline">
-                            <span className="material-symbols-outlined text-sm">open_in_new</span>Review
+                  <div key={loan.id} className="p-4 hover:bg-slate-50 transition-colors flex flex-col gap-3">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="font-semibold text-slate-900 text-base">{loan.applicant?.fullName}</div>
+                        <div className="text-xs text-slate-500 mt-0.5">{loan.applicant?.employmentType} • {loan.loanType?.loanTypeName}</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-bold text-slate-900 text-base">₹{loan.loanAmount.toLocaleString()}</div>
+                        {score && <div className={`text-[10px] font-bold uppercase mt-1 ${riskColor[score.riskCategory]}`}>{score.riskCategory}</div>}
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between pt-2 border-t border-slate-50">
+                      <div className="text-xs font-bold text-slate-500">
+                        Score: <span className="text-[var(--color-primary)]">{score?.creditScore ?? "—"}</span>
+                      </div>
+                      <div className="flex gap-2">
+                        {loan.officerId === officerId || !loan.officerId ? (
+                          <Link href={`/officer/review/${loan.id}`}>
+                            <button className="flex items-center gap-1 text-[var(--color-primary)] font-bold text-xs bg-[var(--color-primary)]/10 px-3 py-1.5 rounded-lg">
+                              Review
+                            </button>
+                          </Link>
+                        ) : (
+                          <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-3 py-1.5 rounded-lg">ASSIGNED</span>
+                        )}
+                        
+                        {!loan.officerId && (
+                          <button 
+                            onClick={async () => {
+                              try {
+                                await api.patch(`/loan-applications/${loan.id}/assign`, { officerId });
+                                window.location.reload();
+                              } catch (e) {
+                                alert("Claim failed.");
+                              }
+                            }}
+                            className="text-[10px] font-bold text-white bg-[var(--color-primary)] px-3 py-1.5 rounded-lg hover:opacity-90"
+                          >
+                            CLAIM
                           </button>
-                        </Link>
-                      ) : (
-                        <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-lg">ASSIGNED</span>
-                      )}
-                      
-                      {!loan.officerId && (
-                        <button 
-                          onClick={async () => {
-                            try {
-                              await api.patch(`/loan-applications/${loan.id}/assign`, { officerId });
-                              window.location.reload();
-                            } catch (e) {
-                              alert("Claim failed.");
-                            }
-                          }}
-                          className="ml-2 text-[10px] font-bold text-white bg-[var(--color-primary)] px-2 py-1 rounded-lg hover:opacity-90 active:scale-95 transition-all"
-                        >
-                          CLAIM
-                        </button>
-                      )}
-                    </td>
-                  </tr>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 );
               })}
-            </tbody>
-          </table>
-        </div>
+            </div>
+          </>
       )}
     </div>
   </div>

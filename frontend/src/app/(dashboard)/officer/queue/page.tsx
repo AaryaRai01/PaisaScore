@@ -103,15 +103,80 @@ export default function OfficerQueuePage() {
               <p>No applications yet.</p>
             </div>
           ) : (
-            <table className="w-full text-sm text-left min-w-[800px]">
-              <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
-                <tr>
-                  {["#", "Applicant", "Loan Type", "Amount", "Tenure", "Score", "Officer", "Status", "Action"].map((h) => (
-                    <th key={h} className="px-4 py-3">{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50">
+            <>
+              {/* Desktop Table */}
+              <table className="hidden md:table w-full text-sm text-left min-w-[800px]">
+                <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
+                  <tr>
+                    {["#", "Applicant", "Loan Type", "Amount", "Tenure", "Score", "Officer", "Status", "Action"].map((h) => (
+                      <th key={h} className="px-4 py-3">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50">
+                  {paginatedLoans.map((loan) => {
+                    const score = loan.applicant?.creditScores?.[0];
+                    const currentOfficerId = getSession()?.id;
+                    
+                    const handleClaim = async () => {
+                      if (!currentOfficerId) { alert("Please log in first."); return; }
+                      try {
+                        await api.patch(`/loan-applications/${loan.id}/assign`, { officerId: currentOfficerId });
+                        window.location.reload(); // Quick refresh
+                      } catch (e) {
+                        alert("Assignment failed.");
+                      }
+                    };
+
+                    return (
+                      <tr key={loan.id} className="hover:bg-slate-50 transition-colors">
+                        <td className="px-4 py-3.5 text-slate-400 text-xs font-mono">{loan.id}</td>
+                        <td className="px-4 py-3.5">
+                          <div className="font-semibold text-slate-900">{loan.applicant?.fullName}</div>
+                          <div className="text-xs text-slate-400">{loan.applicant?.employmentType}</div>
+                        </td>
+                        <td className="px-4 py-3.5 text-slate-700">{loan.loanType?.loanTypeName}</td>
+                        <td className="px-4 py-3.5 font-semibold text-slate-900">₹{loan.loanAmount.toLocaleString()}</td>
+                        <td className="px-4 py-3.5 text-slate-500 font-medium">{loan.tenureMonths}m</td>
+                        <td className="px-4 py-3.5">
+                          <span className={`font-bold ${score?.creditScore && score.creditScore >= 750 ? "text-green-600" : score?.creditScore && score.creditScore >= 650 ? "text-yellow-600" : "text-red-500"}`}>
+                            {score?.creditScore ?? "—"}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3.5">
+                          {loan.officer ? (
+                            <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-indigo-50 border border-indigo-100 w-fit">
+                              <span className="material-symbols-outlined text-xs text-indigo-400" style={{ fontVariationSettings: "'FILL' 1" }}>person</span>
+                              <span className="text-[10px] font-bold text-indigo-700 truncate max-w-[80px]">{loan.officer.name.split(" ")[0]}</span>
+                            </div>
+                          ) : (
+                            <button 
+                              onClick={handleClaim}
+                              className="text-[10px] font-bold text-[var(--color-primary)] bg-[var(--color-primary)]/10 px-2 py-1 rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
+                            >
+                              CLAIM
+                            </button>
+                          )}
+                        </td>
+                        <td className="px-4 py-3.5">
+                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${statusStyle[loan.loanStatus]}`}>{loan.loanStatus}</span>
+                        </td>
+                        <td className="px-4 py-3.5">
+                          <Link href={`/officer/review/${loan.id}`}>
+                            <button className="flex items-center gap-1 text-[var(--color-primary)] text-xs font-bold hover:underline">
+                              <span className="material-symbols-outlined text-base">arrow_forward</span>
+                              Review
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+
+              {/* Mobile Card Stack */}
+              <div className="grid grid-cols-1 gap-4 p-4 md:hidden bg-slate-50/50">
                 {paginatedLoans.map((loan) => {
                   const score = loan.applicant?.creditScores?.[0];
                   const currentOfficerId = getSession()?.id;
@@ -120,58 +185,63 @@ export default function OfficerQueuePage() {
                     if (!currentOfficerId) { alert("Please log in first."); return; }
                     try {
                       await api.patch(`/loan-applications/${loan.id}/assign`, { officerId: currentOfficerId });
-                      window.location.reload(); // Quick refresh
+                      window.location.reload();
                     } catch (e) {
                       alert("Assignment failed.");
                     }
                   };
 
                   return (
-                    <tr key={loan.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-4 py-3.5 text-slate-400 text-xs font-mono">{loan.id}</td>
-                      <td className="px-4 py-3.5">
-                        <div className="font-semibold text-slate-900">{loan.applicant?.fullName}</div>
-                        <div className="text-xs text-slate-400">{loan.applicant?.employmentType}</div>
-                      </td>
-                      <td className="px-4 py-3.5 text-slate-700">{loan.loanType?.loanTypeName}</td>
-                      <td className="px-4 py-3.5 font-semibold text-slate-900">₹{loan.loanAmount.toLocaleString()}</td>
-                      <td className="px-4 py-3.5 text-slate-500 font-medium">{loan.tenureMonths}m</td>
-                      <td className="px-4 py-3.5">
-                        <span className={`font-bold ${score?.creditScore && score.creditScore >= 750 ? "text-green-600" : score?.creditScore && score.creditScore >= 650 ? "text-yellow-600" : "text-red-500"}`}>
-                          {score?.creditScore ?? "—"}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3.5">
-                        {loan.officer ? (
-                          <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-indigo-50 border border-indigo-100 w-fit">
-                            <span className="material-symbols-outlined text-xs text-indigo-400" style={{ fontVariationSettings: "'FILL' 1" }}>person</span>
-                            <span className="text-[10px] font-bold text-indigo-700 truncate max-w-[80px]">{loan.officer.name.split(" ")[0]}</span>
+                    <div key={loan.id} className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col gap-4">
+                      <div className="flex justify-between items-start border-b border-slate-100 pb-3">
+                        <div>
+                          <div className="font-bold text-slate-900 text-base">{loan.applicant?.fullName}</div>
+                          <div className="text-xs text-slate-500 mt-0.5">{loan.applicant?.employmentType} • {loan.loanType?.loanTypeName}</div>
+                        </div>
+                        <span className={`px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider ${statusStyle[loan.loanStatus]}`}>{loan.loanStatus}</span>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-3 text-sm">
+                        <div>
+                          <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Amount</p>
+                          <p className="font-bold text-slate-900 text-base">₹{loan.loanAmount.toLocaleString()}</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Tenure</p>
+                          <p className="font-medium text-slate-700 text-base">{loan.tenureMonths}m</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Score</p>
+                          <p className={`font-bold text-base ${score?.creditScore && score.creditScore >= 750 ? "text-green-600" : score?.creditScore && score.creditScore >= 650 ? "text-yellow-600" : "text-red-500"}`}>
+                            {score?.creditScore ?? "—"}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Officer</p>
+                          <div className="mt-0.5">
+                            {loan.officer ? (
+                              <span className="text-sm font-bold text-indigo-700">{loan.officer.name.split(" ")[0]}</span>
+                            ) : (
+                              <button onClick={handleClaim} className="text-[10px] font-bold text-[var(--color-primary)] bg-[var(--color-primary)]/10 px-2.5 py-1 rounded hover:bg-[var(--color-primary)]/20">CLAIM</button>
+                            )}
                           </div>
-                        ) : (
-                          <button 
-                            onClick={handleClaim}
-                            className="text-[10px] font-bold text-[var(--color-primary)] bg-[var(--color-primary)]/10 px-2 py-1 rounded-lg hover:bg-[var(--color-primary)]/20 transition-colors"
-                          >
-                            CLAIM
-                          </button>
-                        )}
-                      </td>
-                      <td className="px-4 py-3.5">
-                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${statusStyle[loan.loanStatus]}`}>{loan.loanStatus}</span>
-                      </td>
-                      <td className="px-4 py-3.5">
-                        <Link href={`/officer/review/${loan.id}`}>
-                          <button className="flex items-center gap-1 text-[var(--color-primary)] text-xs font-bold hover:underline">
+                        </div>
+                      </div>
+
+                      <div className="pt-3 border-t border-slate-100">
+                        <Link href={`/officer/review/${loan.id}`} className="w-full block">
+                          <button className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)]/5 hover:bg-[var(--color-primary)]/10 text-[var(--color-primary)] py-2.5 rounded-lg text-sm font-bold transition-colors">
                             <span className="material-symbols-outlined text-base">arrow_forward</span>
-                            Review
+                            Review Application
                           </button>
                         </Link>
-                      </td>
-                    </tr>
+                      </div>
+                    </div>
                   );
                 })}
-              </tbody>
-            </table>
+              </div>
+            </>
+
           )}
       </div>
     </div>

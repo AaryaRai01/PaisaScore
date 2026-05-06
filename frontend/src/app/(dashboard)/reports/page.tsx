@@ -232,39 +232,86 @@ export default function OfficerReportsPage() {
             </div>
           </div>
         </div>
-        <div className="w-full overflow-x-auto">
-          <table className="w-full text-sm text-left min-w-[1000px]">
-            <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
-              <tr>
-                {["Applicant", "Loan Type", "Amount", "Tenure", "Credit Score", "Risk", "Status", "Decision Reason", "Date"].map((h) => (
-                  <th key={h} className="px-5 py-3">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {paginatedLoans.map((loan) => {
-                const score = loan.applicant?.creditScores?.[0];
-                return (
-                  <tr key={loan.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-5 py-3.5 font-semibold text-slate-900">{loan.applicant?.fullName}</td>
-                    <td className="px-5 py-3.5 text-slate-600">{loan.loanType?.loanTypeName}</td>
-                    <td className="px-5 py-3.5 font-semibold">₹{loan.loanAmount.toLocaleString()}</td>
-                    <td className="px-5 py-3.5 text-slate-500">{loan.tenureMonths} mo</td>
-                    <td className="px-5 py-3.5 font-bold text-[var(--color-primary)]">{score?.creditScore ?? "—"}</td>
-                    <td className="px-5 py-3.5">
-                      {score && <span className={`px-2 py-1 rounded-full text-xs font-bold ${score.riskCategory === "Low" ? "bg-green-100 text-green-800" : score.riskCategory === "Medium" ? "bg-yellow-100 text-yellow-800" : "bg-red-100 text-red-800"}`}>{score.riskCategory}</span>}
-                    </td>
-                    <td className="px-5 py-3.5">
-                      <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${loan.loanStatus === "Approved" ? "bg-green-100 text-green-800" : loan.loanStatus === "Rejected" ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"}`}>{loan.loanStatus}</span>
-                    </td>
-                    <td className="px-5 py-3.5 text-slate-400 text-xs max-w-xs truncate">{loan.approvalDecision?.decisionReason ?? "Awaiting review"}</td>
-                    <td className="px-5 py-3.5 text-slate-400 text-xs">{new Date(loan.applicationDate).toLocaleDateString()}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <>
+          <div className="hidden md:block w-full overflow-x-auto">
+            <table className="w-full text-sm text-left min-w-[1000px]">
+              <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
+                <tr>
+                  {["Applicant", "Loan Type", "Amount", "Tenure", "Credit Score", "Risk", "Status", "Decision Reason", "Date"].map((h) => (
+                    <th key={h} className="px-5 py-3">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                {paginatedLoans.map((loan) => {
+                  const score = loan.applicant?.creditScores?.[0];
+                  return (
+                    <tr key={loan.id} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-5 py-3.5 font-semibold text-slate-900">{loan.applicant?.fullName}</td>
+                      <td className="px-5 py-3.5 text-slate-600">{loan.loanType?.loanTypeName}</td>
+                      <td className="px-5 py-3.5 font-semibold">₹{loan.loanAmount.toLocaleString()}</td>
+                      <td className="px-5 py-3.5 text-slate-500">{loan.tenureMonths} mo</td>
+                      <td className="px-5 py-3.5 font-bold text-[var(--color-primary)]">{score?.creditScore ?? "—"}</td>
+                      <td className="px-5 py-3.5">
+                        {score && <span className={`px-2 py-1 rounded-full text-xs font-bold ${score.riskCategory === "Low" ? "bg-green-100 text-green-800" : score.riskCategory === "Medium" ? "bg-yellow-100 text-yellow-800" : "bg-red-100 text-red-800"}`}>{score.riskCategory}</span>}
+                      </td>
+                      <td className="px-5 py-3.5">
+                        <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${loan.loanStatus === "Approved" ? "bg-green-100 text-green-800" : loan.loanStatus === "Rejected" ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"}`}>{loan.loanStatus}</span>
+                      </td>
+                      <td className="px-5 py-3.5 text-slate-400 text-xs max-w-xs truncate">{loan.approvalDecision?.decisionReason ?? "Awaiting review"}</td>
+                      <td className="px-5 py-3.5 text-slate-400 text-xs">{new Date(loan.applicationDate).toLocaleDateString()}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="md:hidden flex flex-col divide-y divide-slate-100 bg-slate-50/30">
+            {paginatedLoans.map((loan) => {
+              const score = loan.applicant?.creditScores?.[0];
+              return (
+                <div key={loan.id} className="p-4 flex flex-col gap-3">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <div className="font-bold text-slate-900 text-base">{loan.applicant?.fullName}</div>
+                      <div className="text-xs text-slate-500 mt-0.5">{loan.loanType?.loanTypeName}</div>
+                    </div>
+                    <span className={`px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider ${loan.loanStatus === "Approved" ? "bg-green-100 text-green-800" : loan.loanStatus === "Rejected" ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"}`}>{loan.loanStatus}</span>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3 text-sm mt-1">
+                    <div>
+                      <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Amount</p>
+                      <p className="font-bold text-slate-900">₹{loan.loanAmount.toLocaleString()}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Tenure / Date</p>
+                      <p className="font-medium text-slate-700">{loan.tenureMonths}m · {new Date(loan.applicationDate).toLocaleDateString()}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Score</p>
+                      <p className="font-bold text-[var(--color-primary)]">{score?.creditScore ?? "—"}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Risk</p>
+                      {score ? (
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${score.riskCategory === "Low" ? "bg-green-100 text-green-800" : score.riskCategory === "Medium" ? "bg-yellow-100 text-yellow-800" : "bg-red-100 text-red-800"}`}>
+                          {score.riskCategory}
+                        </span>
+                      ) : <span className="text-slate-400">—</span>}
+                    </div>
+                  </div>
+
+                  <div className="mt-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                    <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider mb-1">Decision / Reason</p>
+                    <p className="text-xs text-slate-600 italic">{loan.approvalDecision?.decisionReason ?? "Awaiting review"}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
       </div>
 
       {/* Print Footer */}
