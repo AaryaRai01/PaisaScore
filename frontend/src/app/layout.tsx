@@ -17,7 +17,8 @@ export const metadata: Metadata = {
   title: "PaisaScore | Financial Architecture for the Modern Borrower",
   description: "Fast, Transparent, and Secure Loan Approvals.",
   icons: {
-    icon: "/paisascore-logo.png",
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
   },
 };
 
