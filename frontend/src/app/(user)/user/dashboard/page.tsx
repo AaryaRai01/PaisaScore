@@ -120,8 +120,9 @@ export default function UserDashboard() {
               <button className="px-6 py-2.5 bg-[var(--color-primary)] text-white rounded-xl text-sm font-bold">Apply Now →</button>
             </Link>
           </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left min-w-[500px]">
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left min-w-[500px]">
             <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
               <tr>{["Loan Type", "Amount", "Tenure", "EMI", "Status", "Applied"].map((h) => <th key={h} className="px-5 py-3">{h}</th>)}</tr>
             </thead>
