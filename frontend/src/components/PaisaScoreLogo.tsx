@@ -15,10 +15,10 @@ interface PaisaScoreLogoProps {
 export default function PaisaScoreLogo({ height = 40, className = "" }: PaisaScoreLogoProps) {
   return (
     <Image
-      src="/officer and user dashboard logo.png"
+      src="/icon.png"
       alt="PaisaScore"
       height={height}
-      width={height * 3.5} // Rectangular ratio
+      width={height} // Square ratio
       className={`object-contain object-left ${className}`}
       priority
     />
@@ -29,15 +29,15 @@ export default function PaisaScoreLogo({ height = 40, className = "" }: PaisaSco
 export function PaisaScoreIcon({ size = 40, className = "" }: { size?: number; className?: string }) {
   return (
     <div
-      className={`overflow-hidden flex-shrink-0 ${className}`}
+      className={`overflow-hidden flex-shrink-0 flex items-center justify-center ${className}`}
       style={{ width: size, height: size }}
     >
       <Image
-        src="/officer and user dashboard logo.png"
+        src="/icon.png"
         alt="PaisaScore icon"
-        height={size * 2}
-        width={size * 2 * 2.8}
-        className="object-left object-contain scale-[1.4] origin-left translate-y-[-5%]"
+        height={size}
+        width={size}
+        className="object-contain"
         priority
       />
     </div>
