@@ -1,15 +1,19 @@
 # PaisaScore 🚀
 
-PaisaScore is a comprehensive **Credit Risk Assessment and Loan Management Platform** designed to streamline the loan application process. It uses a data-driven approach to evaluate applicant risk and manage the entire loan lifecycle from application to repayment.
+PaisaScore is a full-stack credit risk platform built with **Next.js**, **Express**, and **MySQL/Prisma**, featuring **Tailwind CSS 4** and **TypeScript** for a scalable, type-safe, and high-performance financial management solution.
+
+---
 
 ## 🌟 Key Features
 
-- **Automated Credit Scoring**: Evaluates applicants based on income, employment, and credit history.
-- **Loan Management**: Dashboard for Bank Officers to review, approve, or reject loan applications.
-- **Risk Categorization**: Automatically tags applications as Low, Medium, or High risk.
-- **Applicant Portal**: Allows users to submit loan requests and track their status.
-- **Repayment Tracking**: Monitor payment schedules and remaining balances.
-- **Historical Data Analysis**: Stores and analyzes past credit performance.
+- **Automated Credit Scoring**: Evaluates applicants based on income, employment, and credit history using data-driven algorithms.
+- **Loan Management Dashboard**: A professional interface for Bank Officers to review, assign, approve, or reject loan applications.
+- **Real-time Risk Categorization**: Automatically categorizes applications into **Low**, **Medium**, and **High** risk levels.
+- **Applicant Portal**: Secure portal for users to submit loan requests, track status, and manage profile details.
+- **Repayment Tracking**: Comprehensive system to monitor payment schedules, remaining balances, and credit score impacts.
+- **Analytics & Reporting**: Data visualization for portfolio value, approval rates, and high-risk applicant counts.
+
+---
 
 ## 🛠️ Tech Stack
 
@@ -18,7 +22,7 @@ PaisaScore is a comprehensive **Credit Risk Assessment and Loan Management Platf
 - **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
 - **State Management**: [Zustand](https://github.com/pmndrs/zustand)
 - **Data Fetching**: [React Query](https://tanstack.com/query/latest) & [Axios](https://axios-http.com/)
-- **UI Components**: Radix UI / Custom components
+- **Icons**: [Lucide React](https://lucide.dev/)
 
 ### Backend
 - **Runtime**: [Node.js](https://nodejs.org/) with [TypeScript](https://www.typescriptlang.org/)
@@ -56,10 +60,9 @@ npx prisma db push
 # (Optional) Seed initial data
 npm run seed
 ```
-- **Production Build**:
+- **Run Development**:
 ```bash
-npm run build
-npm start
+npm run dev
 ```
 
 ### 3. Frontend Setup
@@ -81,14 +84,14 @@ PaisaScore is deployment-ready and optimized for the following **Free Tier** sta
 | **Render** | Node.js Backend | API hosting with automatic builds |
 | **Vercel** | Next.js Frontend | High-performance static & SSR hosting |
 
-### Environment Variables Checklist
+### Required Environment Variables
 
-#### Backend
+#### Backend (`/backend`)
 - `DATABASE_URL`: Your cloud MySQL connection string.
 - `FRONTEND_URL`: Your deployed Vercel URL (e.g., `https://paisascore.vercel.app`).
-- `PORT`: (Auto-set by Render).
+- `PORT`: Auto-set by Render.
 
-#### Frontend
+#### Frontend (`/frontend`)
 - `NEXT_PUBLIC_API_URL`: Your deployed Render API URL (e.g., `https://paisascore-api.onrender.com/api`).
 
 ---
@@ -98,24 +101,25 @@ PaisaScore is deployment-ready and optimized for the following **Free Tier** sta
 ```text
 PaisaScore/
 ├── backend/                # Express API & Prisma Schema
-│   ├── prisma/            # Database models and migrations
-│   ├── src/               # API logic and controllers
-│   └── migration_dump.sql # Sample data dump
+│   ├── prisma/            # Database models, migrations, and seeds
+│   ├── src/               # API logic, controllers, and routes
+│   └── migration_mysql.sql # SQL schema dump
 ├── frontend/               # Next.js Application
-│   ├── src/app/           # App router pages
-│   ├── src/components/    # Reusable UI components
+│   ├── src/app/           # App router pages and layouts
+│   ├── src/components/    # UI components and Radix primitives
+│   ├── src/lib/           # API client and utilities
 │   └── src/store/         # Zustand state management
 └── README.md
 ```
+
+---
 
 ## 👥 Contributors
 
 - **Aarya Rai**
 - **Kushagra Tyagi**
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+---
 
 ## 📄 License
 
