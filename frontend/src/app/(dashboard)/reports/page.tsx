@@ -83,8 +83,8 @@ export default function OfficerReportsPage() {
     <div className="p-4 lg:p-8 space-y-6 lg:space-y-8">
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b pb-4">
         <div className="flex flex-col gap-1 w-full sm:w-auto">
-          <h2 className="font-headline text-lg lg:text-4xl font-extrabold text-slate-900 tracking-tight">Report</h2>
-          <p className="text-slate-500 text-[10px] lg:text-base mt-0.5">Live portfolio analytics.</p>
+          <h2 className="font-headline text-base lg:text-4xl font-extrabold text-slate-900 tracking-tight">REPORTS</h2>
+          <p className="text-slate-500 text-[9px] lg:text-base mt-0.5">Portfolio analytics.</p>
           
           {mounted && (
             <div className="hidden print:grid grid-cols-2 gap-8 mt-6 border-t pt-6">

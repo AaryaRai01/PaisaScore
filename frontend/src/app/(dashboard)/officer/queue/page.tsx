@@ -42,9 +42,9 @@ export default function OfficerQueuePage() {
     <div className="space-y-0">
       <header className="sticky top-0 bg-white/90 backdrop-blur-xl border-b border-slate-100 px-4 py-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 z-40">
         <div>
-          <h2 className="font-headline text-lg lg:text-2xl font-bold text-slate-900">Queue</h2>
+          <h2 className="font-headline text-base lg:text-2xl font-bold text-slate-900 tracking-tight">Queue</h2>
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 mt-0.5">
-            <p className="text-slate-500 text-[10px]">{loans.length} applications</p>
+            <p className="text-slate-500 text-[9px]">{loans.length} items</p>
             <div className="hidden sm:block h-4 w-[1px] bg-slate-200" />
             <div className="flex items-center gap-3">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{startRange}-{endRange} of {loans.length}</span>
