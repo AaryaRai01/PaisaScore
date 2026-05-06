@@ -1,6 +1,6 @@
 # PaisaScore 🚀
 
-PaisaScore is a full-stack credit risk platform built with **Next.js**, **Express**, and **MySQL/Prisma**, featuring **Tailwind CSS 4** and **TypeScript** for a scalable, type-safe, and high-performance financial management solution.
+PaisaScore is a full-stack credit risk platform built with Next.js, Express, and MySQL/Prisma, featuring Tailwind CSS 4 and TypeScript for a scalable, type-safe, and high-performance financial management solution
 
 ---
 
